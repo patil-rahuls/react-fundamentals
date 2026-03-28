@@ -3,21 +3,16 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 // The useEffect hook in React allows developers to perform side effects such as
-// data fetching, setting up/cleaning up timers, in functional components.
-//
-// It runs after every render, including the first render, and after the render
-// is committed to the screen.
-//
+// data fetching, setting up/cleaning up timers, in the lifecycle of any
+// functional components.
+
 // The useEffect hook takes two arguments -
-//      1. a function to run after every render and
+//      1. a function(side-effect) to run after every render and
 //      2. an array of dependencies that determines when the effect should be run.
-//         If the dependency array is empty or absent, the effect will run after
-//         every render.
 
 // In the below example, we have -
 // A Random Number generator button and an h1 tag showing the random number.
 import { useEffect, useState } from "react";
-
 export const RandomNumberApp = () => {
     const [randNumber, setRandNumber] = useState(null);
     const handleRandNumber = () => {
@@ -25,9 +20,10 @@ export const RandomNumberApp = () => {
         setRandNumber(newRandNumber);
     };
 
-    // Exanple 1 -
+    // Scenario 1 -
     // It runs each time when this component(RandomNumberApp) is mounted and
-    // when anything in this component is rendered each time.
+    // when any other child component within this component is rendered each
+    // time.
     useEffect(() => {
         console.log('useEffect was called.');
         // Not a good idea to hit APIs using this method because every
@@ -37,30 +33,27 @@ export const RandomNumberApp = () => {
         // re-renders.
     });
 
-    // Example 2 -
-    // Empty dependency array, so fetch runs only once on mount.
-    // Runs only once when the component is mounted.
+    // Scenario 2 -
+    // Empty dependency array, runs only when the component is mounted.
     useEffect(() => {
         console.log('useEffect was called with empty Dependency.');
     }, []);
 
-    // Example 3 -
+    // Scenario 3 -
     // Using a State dependency.
     // Runs when the component is mounted and whenever the dependent state(mentioned)
     // in the dependency array, changes.
     useEffect(() => {
         console.log('useEffect was called with a Dependency.');
     }, [randNumber]);
-    // This will run first on mount and then only when the state "randNumber" gets
-    // changed.
+    // This will run first on mount and then only whenever the state "randNumber"
+    // gets changed.
 
-    // Example 4 -
+    // Scenario 4 -
     // Cleanup Function.
-    // We reutrn a function from useEffect. It runs when the component unmounts or
-    // whenever the dependent state(mentioned) in the dependency array, changes.
-    // What's Mount and unmount.
-    // When the randNumber value gets changed from (let's say) 10 to 34,
-    // React first unmounts that previous value i.e. 10, and mounts new value 34.
+    // We return a function from useEffect, usually called a "Clean-Up function"
+    // CleanUp function runs when the component unmounts and when the dependent state
+    // (mentioned) in the dependency array, changes BEFORE NEW EFFECT RUNS.
     useEffect(() => {
         console.log('Creating socket connection...');
         // Return a clean-up function.
@@ -70,17 +63,29 @@ export const RandomNumberApp = () => {
     }, [randNumber]);
     // What happens?
     // At the very first, when the component is mounted, which will the log:
-    // "Creating socket connection..."
-    // Then, on clicking the button to generate random Number, the previous value
-    // (let's say) '10' will be unmounted, and new value gets mounted.
-    // When the previous value is unmounted, the clean up function will
-    // be called.
-    // "Disconnected socket connection."
-    // And when the new value gets mounted, then the callback inside the
-    // useEffect will be called.
+        // "Creating socket connection..."
+    // ( You Click the button)
+    // The dependency is changed, so BEFORE RE-RENDERING NEW State it triggers the
+    // CleanUp Function, which logs:
+        // "Disconnected socket connection."
+    // And then:
+        // "Creating socket connection..."
+    // (Let's say the component now gets unmounted)
+    // The Cleanup function would again get called.
+        // "Disconnected socket connection."
 
     // Whenever state "randNumber" changes, the cleanup function is called BEFORE
     // NEW EFFECT RUNS.
+
+    // If dependencies are not provided. []
+    useEffect(() => {
+        console.log('Creating socket connection...');
+        // Return a clean-up function.
+        return () => {
+            console.log('Disconnected socket connection.')
+        };
+    }, []);
+    // The cleanup only runs once—when the component unmounts.
 
     // Use cases -
     // Abort ongoing asynchronous operations:

@@ -100,7 +100,7 @@ export const ButtonComponent3 = () => {
 
 
 // Now lets say we have another css file with the same classnames BUT INTEDED FOR
-// A SPEFICI MODULE.
+// a Specific Module.
 /* -----------------------------------
 |CSS File: ../css/style_v2.module.css |
 |    .btn-primary {                   |

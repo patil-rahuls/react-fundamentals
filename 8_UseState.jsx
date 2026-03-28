@@ -2,14 +2,14 @@
 // State ///////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-// "state" is a way we use to store and manage data that changes over time 
+// "state" is a way we use to store and manage data that changes over time
 // within a component.
 
-// It can be updated using the setState() method and 
+// It can be updated using the setState() method and
 // is used to control the behavior and rendering of a component.
 
-// We use a React Hook called "useState" to control components' state. 
-// (We will look at Hooks in the later section...)
+// We use a React Hook called "useState" to control components' state.
+// (Hooks are explained in "8_Hooks" file)
 
 import { useState } from 'react';
 
@@ -18,9 +18,9 @@ function MyButton() {
   // Convention [something, setSomething]
   // ...
 }
-// useState(0) returns 2 things: 
-//    the current state (count), and 
-//    the function that lets you update it (setCount). 
+// useState(0) returns 2 things:
+//    the current state (count), and
+//    the function that lets you update it (setCount).
 // 0 (parameter) is the default value of the current state(count).
 
 

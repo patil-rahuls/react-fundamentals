@@ -43,7 +43,7 @@ export const RandomNumberComponent = memo(
 
 // File: MyApp
 import RandomNumberComponent from "../components/RandomNumberComponent";
-import { useCallback , useState} from "react";
+import { useCallback , useState } from "react";
 export const MyApp = () => {
     // Counter
     const [count, setCount] = useState(0);

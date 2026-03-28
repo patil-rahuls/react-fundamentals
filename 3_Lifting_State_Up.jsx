@@ -19,7 +19,7 @@ export cosnt App = () => {
 };
 
 
-// myClick is the function as a prop. 
+// myClick is the function as a prop.
 // so that we can pass data to this function from child.
 
 // Child Component:

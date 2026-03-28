@@ -7,6 +7,19 @@
 // track changes across your entire app.
 // For a complex project with high frequency renders, we must use Redux.
 
+/*
+Consider this directory structure for this example:
+src/
+├── app/
+│   ├── store.jsx           # Store configuration
+├── features/
+│   ├── theme/
+│   │   ├── themeSlice.jsx  # The slice (actions + reducer)
+├── components/
+├────── ThemeButton.jsx     # Button that controls theme
+├── index.jsx               # entry point
+*/
+
 
 // Slice:
 // A slice is defined by three main components:
@@ -19,30 +32,34 @@
 // 1. Create a Redux State Slice
 // File: src/features/theme/themeSlice.jsx
 import { createSlice } from "@reduxjs/toolkit";
-const themeSlice = createSlice({
-  name: 'theme',
-  initialState: 'light',
+const initialState = 'light';
+const themeReducer = createSlice({
+  name: 'theme', // Name of slice(not state)
+  initialState,  // This can also be an object
   reducer: {
     toggleTheme: (state) => {
+      // the 'state' is an internal property and is not accessible
+      // directly. So we dont call it like toggleTheme('some_value');
+      // See line# 103
       return state === 'light' ? 'dark' : 'light'
-    }
+    },
   }
 });
 // These are standard exports and required
-export const { toggleTheme } = themeSlice.actions;
-export default themeSlice.reducer;
+export const { toggleTheme } = themeReducer.actions;
+export default themeReducer.reducer;
 
 
 // Store: (Connecting the Logic)
 // The Store is the global object.
 // You "register" your slice reducer here so the app knows it exists.
 // 2. Create a store.
-// File: app/store.js
+// File: src/app/store.js
 import { configureStore } from "@reduxjs/toolkit";
-import themeSlice from "./src/features/theme/themeSlice";
+import themeReducer from "../src/features/theme/themeSlice";
 export const store = configureStore({
     reducer: {
-        theme: themeSlice // Your state will now live at "state.theme"
+        themeColor: themeReducer // Your state will now live at "state.themeColor"
     }
 });
 
@@ -50,16 +67,16 @@ export const store = configureStore({
 // 3. 'Provide' the store to React.
 // We can make it available to our React components by putting a React-Redux <Provider>
 // around our application in src/index.js.
+// We Wrap out App using this Provider.
 // We pass the store as a prop in the Provider.
 
-// File: index.js (entry point)
+// File: src/index.js (entry point)
 import React from 'react'
 import { createRoot } from 'react-dom/client';
 import './index.css';
 import App from './App';
 import { store } from './app/store';    // Store
 import { Provider } from 'react-redux'; // Provider
-// For everything else, we @reduxjs/toolkit.
 
 createRoot(document.getElementById('root')).render(
     <Provider store={store}>
@@ -70,20 +87,20 @@ createRoot(document.getElementById('root')).render(
 
 // 4. The Component (Using the Logic)
 // In React, you use two specific hooks to talk to the code above:
-// useSelector: To read the value.
-// useDispatch: To dispatch an action that changes the value.
+// File: src/components/ThemeButton.jsx
 import { useSelector, useDispatch } from "react-redux";
-import { toggleTheme } from "./src/features/theme/themeSlice";
+import { toggleTheme } from "../src/features/theme/themeSlice";
 // toggleTheme is named export, i.e. the reducer function.
 
 export const ThemeButton = () => {
-  // 1. Grab the current value from the store
   const currentTheme = useSelector((state) => state.theme);
+  // useSelector: To access the state from the store.
 
   const dispatch = useDispatch();
+  // useDispatch: To dispatch a reducer action that changes the state.
   return (
     <button
-      onClick={() => dispatch(toggleTheme)}
+      onClick={() => dispatch(toggleTheme())}
       className={ currentTheme === 'light' ? 'dark-btn' : 'light-btn'}
     >Change to { currentTheme === 'light' ? 'Light' : 'Dark' } Mode</button>
   );
@@ -91,10 +108,18 @@ export const ThemeButton = () => {
 
 // The Code Execution Flow
 // Button Click:
-//    You (the user) click the "ThemeButton". The onClick calls dispatch(toggleTheme()).
+//    You (the user) click the "ThemeButton".
+//    It calls toggleTheme(), which returns an object like this:
+//        { type: "theme/toggleTheme", payload: undefined }
+//    And that object is dispatched to the Store.
 
-// Action Sent:
-//    An object { type: "theme/toggleTheme" } is sent to the Store.
+// The Store:
+//    The Store says:
+//        "Okay, I see a toggleTheme action.
+//        I will now look up the "toggleTheme" reducer function.
+//        I'll grab the current state I'm holding in my memory and
+//        inject it as the first argument into that function."
+
 //    Here "theme" is nothing but the 'name' in the Slice. and
 //    "toggleTheme" is the action/reducer function.
 
@@ -106,3 +131,8 @@ export const ThemeButton = () => {
 
 // UI Updates: The useSelector hook notices the change and triggers a re-render of
 // the ThemeButton component with the new colors.
+
+
+// The Flow:
+// Component Dispatches --> Store receives Action --> Store gives current State
+// to Reducer --> Reducer returns New State --> Store updates.

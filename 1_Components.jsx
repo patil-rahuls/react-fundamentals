@@ -2,11 +2,11 @@
 // React Components ////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-// React apps are made out of components. 
+// React apps are made out of components.
 // A component has its own logic and appearance.
 // They are the building blocks of any React App.
 
-// We separate our UI into components, where each component matches one piece 
+// We separate our UI into components, where each component matches one piece
 // of your "data model".
 
 // A React Component can accept 'inputs' called "props"
@@ -36,18 +36,18 @@ function MyApp() {
 
 
 // IMP - The component should always return a single JSX element.
-// Following would fail - 
+// Following would fail -
 function Square() {
   return (
-    <button className="square"></button> 
+    <button className="square"></button>
     <button className="square"></button>
   );
 }
 
 // Solution: React Fragments <>...</>
 
-// React Fragments let you group a list of elements in a component without adding 
-// extra nodes to the DOM.
+// React Fragments let you group a list of elements in a component without adding
+// extra nodes to the real DOM.
 function Square() {
   return (
     <>
@@ -76,5 +76,26 @@ return (
    <button className="square"></button>
   </div>
 </div>
-// But the empty 'div' can affect SEO performance, 
+// But the empty 'div' can affect SEO performance,
 // Hence its advisable, we use react fragment.
+
+
+// Component LifeCycle
+// 1. Mounting -
+//    This is when the component is created and inserted
+//    into the DOM for the first time.
+
+// 2. Updates -
+//    This happens whenever state changes.
+//    The component "re-renders" to reflect the new data.
+
+// 3. UnMount -
+//    This is when the component is removed from the DOM
+//    (e.g., you navigate to a different page).
+
+// IMP: Mount and Unmount is only for the React component and not individual HTML elements.
+// In a Counter app example, when the counter value is updated,
+// it simply re-renders that component which is showing the value.
+// The component remains in the DOM,
+
+// Component Lifecycle can be observed using "useEffect" hook.

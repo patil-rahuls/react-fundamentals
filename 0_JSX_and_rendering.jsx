@@ -2,8 +2,9 @@
 // JSX - JavaScript XML ////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-// Its a syntax extension for JavaScript to use HTML like code directly in
+// JSX is a 'syntax extension' for JavaScript to use HTML like code directly in
 // JavaScript files.
+
 const LearnJSX = () => {
     return (
         <>
@@ -32,7 +33,9 @@ return (
 );
 
 // This is JSX and not html, hence we used "className" which gets transformed to
-// html 'class'
+// 'class' in html.
+
+
 
 ////////////////////////////////////////////////////////////////////////////////
 // Rendering ///////////////////////////////////////////////////////////////////
@@ -40,8 +43,10 @@ return (
 
 ///////////////////////////
 // Initial Rendering:
+// Initial Rendering is when your app starts up.
 // The very first time the UI is built using a 'blueprint' based on our code
 // before any state is manipulated or before any action is taken by user.
+//
 
 
 ///////////////////////////
@@ -76,7 +81,7 @@ return (
 
 // Common Use Case: This is the "cleanup" phase. If you started a timer when
 // the component mounted, you need to stop it now so it doesn't keep running
-// in the background and consume resources!
+// in the background.
 
 ///////////////////////////
 // A react hook called "useEffect" can be used to perform actions(Use Case) on

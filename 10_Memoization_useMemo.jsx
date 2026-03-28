@@ -60,8 +60,6 @@ export const MyApp = () => {
             Even if we click the other button 'Random Number' button,
             the 'randNumber' will ger re-rendered and the isCountTen()
             also gets called again.
-            This happens because we are calling that function and not just
-            passing it to the element.
             */}
 
             {/* Solution: */}
