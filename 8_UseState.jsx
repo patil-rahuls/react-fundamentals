@@ -9,12 +9,11 @@
 // is used to control the behavior and rendering of a component.
 
 // We use a React Hook called "useState" to control components' state.
-// (Hooks are explained in "8_Hooks" file)
 
 import { useState } from 'react';
 
 function MyButton() {
-  const [count, setCount] = useState(0);  // 0 is the default value for "count".
+  const [count, setCount] = useState(0);
   // Convention [something, setSomething]
   // ...
 }

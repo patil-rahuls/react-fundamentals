@@ -6,10 +6,11 @@
 
 export const LearnEvent = () => {
   // Event handlers need to be written inside the Component definition.
-  const handleClick2 = (e) => {
+  const handleClick1 = (e) => {
+    e.preventDefault();
     console.log('1st btn clicked');
   };
-  const handleClick1 = (str) => {
+  const handleClick2 = (str) => {
     console.log(str);
   };
   return (
@@ -18,7 +19,7 @@ export const LearnEvent = () => {
       <button onClick={handleClick1}> Click Me</button>
 
       {/* 2. With Argument */}
-      <button onClick={(e) => handleClick2("Subscribe Me")}> Click Me</button>
+      <button onClick={(e) => { e.preventDefault(); handleClick2("Subscribe Me")} }> Click Me</button>
     </>
   );
 };
@@ -57,11 +58,11 @@ event.stopPropagation()
 // We need to specify event.stopPropagation() in each of the element's handler
 // function.
 
-// stopPropagation() - stops the event from traveling (moving up to parents).
+// stopPropagation() - stops the event from traveling UP (moving up to parents).
 // preventDefault() - stops the event from acting (doing its default browser job).
 /* preventDefault() is used for stop some default behaviour/actions like:
       Form Submission: Clicking a submit button refreshes the page.
-      Links (<a>): Clicking a link navigates you to a new URL.
+      Links (<a>): Clicking a link navigates you to a new URL specified using "href"
       Checkboxes: Clicking a box toggles the checkmark.
 */
 
@@ -85,7 +86,7 @@ event.stopPropagation()
 // 1. The Capturing Phase (The Descent)
 // The event starts at the very top (window and document) and trickles down
 // through every parent until it reaches the element you clicked.
-// Note: Most developers don't use this phase, but it happens every time.
+// The Parent elements intercept the event before it reaches the intended target.
 
 // 2. The Target Phase (The Arrival)
 // The event has reached the specific element you clicked (the event.target).

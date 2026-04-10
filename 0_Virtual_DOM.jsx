@@ -3,34 +3,31 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 // The Virtual DOM (VDOM) is a lightweight, in-memory representation
-// (a "virtual" copy or "blueprint") of the actual Document Object Model (DOM).
+// (a "virtual" copy or a "blueprint") of your UI that is synchronized with the
+// "real" DOM
 
+// The Virtual DOM is a dynamic "blueprint" used by React's diffing algorithm
+// to calculate UI updates.
+
+// It is a live javascript object.
 /*
-// Fiber Architecture:
-// React Fiber is the internal engine that enables Concurrent Rendering.
-// It allows React to break down rendering into small units of work so the
-// browser's main thread stays responsive to the user.
-
-The "Pause and Resume" Ability
-Imagine a Chef (React) cooking a 10-course meal.
-Old React:
-    The Chef starts the meal and refuses to look at the dining room until all
-    10 courses are plated.
-    If a fire starts in the dining room, the Chef doesn't notice.
-
-React Fiber:
-    The Chef plates one dish, looks at the dining room to see if there's an
-    emergency (like a user click), and if everything is fine, plates the second
-    dish. If there is an emergency, the Chef pauses cooking to handle the
-    emergency, then comes back to the kitchen.
-
-A "Fiber" is actually a JavaScript Object that contains information about a
-component, its state, and its relationship to other components.
+e.g.
+{
+  type: 'div',
+  props: {
+    className: 'container',
+    children: [
+      { type: 'h1', props: { children: 'Hello World' } }
+    ]
+  }
+}
 */
 
+
+
 ////////////////////////////////////////////////////////////////////////////////
-// When a state change occurs (like clicking your counter button),
-// React follows this exact sequence:
+// When a state change occurs (like clicking a button),
+// React follows a certain sequence(1-4):
 
 // 0. Initial Render
 // When your app first loads, React calls your component function.
@@ -60,6 +57,90 @@ component, its state, and its relationship to other components.
 
 // This cycle repeats for the next render.
 ////////////////////////////////////////////////////////////////////////////////
+
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Rendering ///////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////
+// Initial Rendering:
+// Initial Rendering happens when your app starts up.
+// The very first time the UI is built using a 'blueprint' based on our code
+// before any state is manipulated or before any action is taken by user.
+
+
+///////////////////////////
+// Re-rendering:
+// If something changes—like a user clicks a button or data arrives from the
+// internet, React re-runs the "script" only for that particular component to
+// see if the UI needs to look different.
+
+
+///////////////////////////
+// Mounting:
+// Mounting is the process of a component being created and inserted into the
+// DOM for the first time.
+// React sets up the component's initial "state" (their memory)
+// and puts the actual HTML elements into the browser's view.
+
+
+///////////////////////////
+// Unmounting:
+// It’s when a component is removed from the DOM.
+// The component is destroyed. Its HTML is scrubbed from the
+// browser, and its "memory" is cleared out.
+
+
+//////////////////////////////////////////////////////
+// A react hook called "useEffect" can be used to perform actions(side-effects)
+// on a component mount and unmount.
+
+
+// Rendering Happens in 2 Phases:
+
+// 1. The Render Phase (The "Planning" Stage) - Asynchronous
+//      This phase is where React does the heavy thinking.
+//      It is asynchronous and can be paused or interrupted to prioritize urgent tasks like user typing.
+//      Trigger:
+//          An update is triggered by the initial mount or a state/prop change.
+//      Virtual Tree Construction:
+//          React calls your component functions to see what they want to return.
+//          It builds a Virtual DOM (a tree of JavaScript objects).
+//      Reconciliation (Diffing):
+//          React compares the new virtual tree with the previous one to identify
+//          exactly what changed.
+//      Fiber Architecture:
+//          React uses "Fiber" nodes to break this work into small chunks.
+//          It can process a few components, "yield" back to the browser to handle
+//          a click or animation, and then resume its work.
+
+ // 2. The Commit Phase (The "Acting" Stage) Synchronous
+//      Once the plan is ready, React hands it over to a Renderer (like react-dom for web).
+//      Unlike the render phase, this stage is synchronous and cannot be interrupted,
+//      ensuring the user never sees a partial UI update.
+//      Mutation:
+//          React surgically applies changes—like appendChild() or removeNode()
+//          only to the parts of the real DOM that actually changed.
+//      Layout & Paint:
+//          The browser takes these changes, recalculates the layout (reflow),
+//          and paints the new pixels on your screen.
+//      Cleanup & Effects:
+//          After the screen updates, React runs useLayoutEffect (before paint)
+//          and useEffect (after paint).
+
+
+
+///////////////////////
+// Fiber Architecture:
+///////////////////////
+// React Fiber is the internal engine that enables Concurrent Rendering.
+// It allows React to break down rendering into small units of work so the
+// browser's main thread stays responsive to the user.
+
+// A "Fiber" is actually a JavaScript Object that contains information about a
+// component, its state, and its relationship to other components.
 
 
 // Advantages of Virtual DOM:

@@ -7,7 +7,7 @@
 // functional components.
 
 // The useEffect hook takes two arguments -
-//      1. a function(side-effect) to run after every render and
+//      1. a function(side-effect) and
 //      2. an array of dependencies that determines when the effect should be run.
 
 // In the below example, we have -
@@ -53,7 +53,7 @@ export const RandomNumberApp = () => {
     // Cleanup Function.
     // We return a function from useEffect, usually called a "Clean-Up function"
     // CleanUp function runs when the component unmounts and when the dependent state
-    // (mentioned) in the dependency array, changes BEFORE NEW EFFECT RUNS.
+    // (mentioned) in the dependency array changes BEFORE NEW EFFECT RUNS.
     useEffect(() => {
         console.log('Creating socket connection...');
         // Return a clean-up function.

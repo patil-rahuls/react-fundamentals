@@ -1,25 +1,24 @@
 ////////////////////////////////////////////////////////////////////////////////
-// Pure Functions //////////////////////////////////////////////////////////////
+// Pure & Impure Functions /////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
 // Given the same arguments, the function must always return the exact same
-// result and not touch anything else(side effect).
-// In React, a Pure Function is simply a component that takes props and returns
-// JSX without changing anything outside of itself.
+// result everytime and not touch anything else(side effect).
+// In React, a Pure Function is simply a component that takes same set of props
+// and returns same JSX everytime without changing anything outside of itself.
 
-// Pure Function/Components are predictable.
+// One Line Definition: Pure Function/Components are predictable.
 
-// PURE: Same props always result in the same JSX
-function WelcomeMessage({ name }) {
+function WelcomeLabel({ name }) {
     return <h1>Hello, {name}</h1>;
     // If you pass name="Alice", it will always render <h1>Hello, Alice</h1>.
     // It doesn't touch any global variables or perform hidden actions.
 }
 
 
+///////////////////////////
 // Impure Function
-// This function is unpredictable because it relies on guestCount, which could
-// change at any moment.
+///////////////////////////
 let guestCount = 5;
 function ImpureCounter() {
     guestCount += 1; // Impure: depends on outside variable
@@ -29,13 +28,17 @@ function ImpureCounter() {
         </div>
     ) ;
 }
+// The function defined above is unpredictable because it relies on guestCount,
+// which could change at any moment.
 
 // React's entire rendering engine is built on the assumption that your
 // components are pure functions.
-// When you write a functional component, React expects it to be a "formula":
-//          Props + State -> JSX
 
-// Turning "Impure" into "Pure" (The React Way)
+
+
+////////////////////////////////////////////////////////
+// Turning "Impure" into "Pure" (Thinking the React Way)
+////////////////////////////////////////////////////////
 // If you need to do something "impure" (like changing a variable or fetching data),
 // you must move that logic into a useEffect hook.
 // This tells React: "Finish rendering the UI first, then run this side effect."
@@ -43,7 +46,7 @@ import { useState, useEffect } from 'react';
 function PureCounter() {
   const [guestCount, setGuestCount] = useState(0);
   useEffect(() => {
-    // This is a "Side Effect," but it's handled safely
+    // This is a "Side Effect," but it is handled safely
     // AFTER the component has rendered.
     setGuestCount(prev => prev + 1);
   }, []); // Only runs once on mount
@@ -53,11 +56,17 @@ function PureCounter() {
 
 
 
-
 // Strict Mode: The "Double Render"
 // Have you ever noticed your console.log appearing twice in development?
-// That is React Strict Mode intentionally calling your function twice.
+// That is React Strict Mode intentionally calling your function twice to see if
+// your function is "Pure."
 
-// It does this to see if your function is "Pure."
+// React expects the "render" phase to be pure.
+
+// Strict Mode double-invokes certain functions (like component bodies and state
+// updaters) to ensure they always produce the same output for the same input.
 // If the two renders produce different results or mess up your data, React is
 // helping you find a bug where your component is "Impure."
+
+// Strict Mode is there to make these "non-deterministic" bugs obvious during
+// development so you can fix them before they reach users(production).

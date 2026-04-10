@@ -81,21 +81,24 @@ return (
 
 
 // Component LifeCycle
-// 1. Mounting -
-//    This is when the component is created and inserted
-//    into the DOM for the first time.
+// 1. Mounting:
+//    Mounting is the process of a component being created and inserted into the
+//    DOM for the first time.
+//    React sets up the component's initial "state" (their memory)
+//    and puts the actual HTML elements into the browser's view.
 
-// 2. Updates -
+// 2. Updates:
 //    This happens whenever state changes.
 //    The component "re-renders" to reflect the new data.
 
-// 3. UnMount -
-//    This is when the component is removed from the DOM
+// 3. Unmounting:
+//    It’s when a component is removed from the DOM.
+//    The component is destroyed. Its HTML is scrubbed from the
+//    browser, and its "memory" is cleared out.
 //    (e.g., you navigate to a different page).
 
 // IMP: Mount and Unmount is only for the React component and not individual HTML elements.
 // In a Counter app example, when the counter value is updated,
 // it simply re-renders that component which is showing the value.
-// The component remains in the DOM,
 
 // Component Lifecycle can be observed using "useEffect" hook.

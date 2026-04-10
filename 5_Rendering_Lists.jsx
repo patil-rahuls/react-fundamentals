@@ -4,8 +4,6 @@
 
 // "Keys"
 // For each <li> element, a "key" attribute must be there.
-// React uses "key" to know what happened to each item if you later insert,
-// delete, or reorder the items.
 // When you render a list in React (like a list of tasks or products), Keys are the
 // unique identifers that help the Virtual DOM's diffing algorithm stay organized.
 // Without them, React gets "confused" and might re-render the entire list
@@ -67,5 +65,5 @@ Imagine if you delete the first item in a list of 10:
     It tries to "patch" the old element with new data instead of removing the
     correct one.
 
-    This operation can be costly if the list is huge.
+    This operation can be costly if the list is huge and is NOT RECOMMENDED!
 */

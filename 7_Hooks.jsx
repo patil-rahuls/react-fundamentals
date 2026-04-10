@@ -3,7 +3,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 // Functions starting with "use" are called Hooks.
-// "Hooks" allow functional components to have state and other lifecycle methods
+// "Hooks" allow functional components to use state and other lifecycle methods.
 // e.g.
 //    State - "useState" adds "State" to a component.
 //    Lifecycle methods - "useEffect" performs side effects(any function) within
