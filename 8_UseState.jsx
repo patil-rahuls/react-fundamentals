@@ -1,14 +1,15 @@
-////////////////////////////////////////////////////////////////////////////////
-// State ///////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////
+// State ////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////
 
-// "state" is a way we use to store and manage data that changes over time
-// within a component.
+// "state" is a way we use to store and manage data that
+// changes over time within a component.
 
-// It can be updated using the setState() method and
-// is used to control the behavior and rendering of a component.
+// It can be updated and is used to control the behavior
+// and rendering of a component.
 
-// We use a React Hook called "useState" to control components' state.
+// We use a React Hook called "useState" to control
+// components' state.
 
 import { useState } from 'react';
 
@@ -20,7 +21,8 @@ function MyButton() {
 // useState(0) returns 2 things:
 //    the current state (count), and
 //    the function that lets you update it (setCount).
-// 0 (parameter) is the default value of the current state(count).
+// "0" (the parameter) is the default value of the current
+// state i.e. "count".
 
 
 
@@ -62,9 +64,15 @@ export const CounterApp = () => {
   return (
     <>
       <h1>Count: {count}</h1>
-      <button onClick={() => handleCount(1)}>Incr.</button>
-      <button onClick={handleResetCount}>Reset</button>
-      <button onClick={() => handleCount(-1)}>Decr.</button>
+      <button onClick={() => handleCount(1)}>
+        Incr.
+      </button>
+      <button onClick={handleResetCount}>
+        Reset
+      </button>
+      <button onClick={() => handleCount(-1)}>
+        Decr.
+      </button>
     </>
   );
 };

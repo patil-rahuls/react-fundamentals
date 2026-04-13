@@ -1,10 +1,11 @@
-////////////////////////////////////////////////////////////////////////////////
-// React Props /////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
+// React Props ///////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
 
 // Props are short for "properties".
-// Props are a way to pass data from a parent component to a child component.
-// They are read-only and cannot be modified by the child component.
+// Props are a way to pass data from a parent component to a
+// child component. They are read-only and cannot be modified
+// by the child component.
 
 // In the JSX, props are added using curly bracess {}
 function Square() {
@@ -15,10 +16,11 @@ function Square() {
   );
 }
 // Here, the 'data' and the 'source' are called "props".
-// These props are passed from parent component "Square()" to the child
-// component "MyButton"
+// These props are passed from parent component "Square()" to
+// the child component "MyButton"
 
-// In the child component i.e. "MyButton", We can define these props like these:
+// In the child component i.e. "MyButton", we can define these
+// props like these:
 function MyButton({data, source}) {
   return (
     <button data-title={data} source={source}></button>
@@ -26,9 +28,12 @@ function MyButton({data, source}) {
 }
 
 // In React, you specify a CSS class with "className".
-<img className="avatar" /> // HTML equivalent -> <img class="avatar" />
+<img className="avatar" />
+// HTML equivalent -> <img class="avatar" />
 
-// When specifying inline style, notice the double curly braces {{ ... }}
+// Inline CSS:
+// When specifying inline style, notice the double curly
+// braces {{ ... }}
 function Profile() {
   return (
     <img style={{
