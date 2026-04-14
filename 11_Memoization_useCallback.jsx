@@ -1,35 +1,44 @@
 /////////////////////////////////////////////////////////////
-// Memoization - useCallback ////////////////////////////////
+// Memoization - memo & useCallback /////////////////////////
 /////////////////////////////////////////////////////////////
 
-// "useMemo" and "useCallback" are React hooks designed to
-// optimize performance by caching (memoizing) values and
-// functions between renders.
+// Two imp things:
+//      1. memo()
+//      2. useCallback()
 
-// "useMemo" lets you cache the result of a function /
-// calculation between re-renders.
-// That result could be a property or state.
-
-// "useCallback" lets you cache a 'function definition'
-// between re-renders.
-
-// Use "useMemo" for expensive calculations
-// (e.g. transforming large arrays).
-// Use "useCallback" when passing functions to child
-// components to prevent unnecessary re-renders of the child.
-
-// memo()
-// To use 'useCallback', we use a HOC(Higher Order Component)
-// called memo();
-// It memoizes the rendering of a functional component.
-
+// 1.
+memo()
+// It memoizes the rendering of a whole functional component.
 // It prevents re-renders of the component if props haven't
 // changed.
-
 // Useful when you have components that are rendering with
 // same props but don't need to update those props change.
 // Its a waste of resource if we are unnecesary updating
 // a prop if its not changing, with the same value.
+
+// How it works?
+// We use memo() to wrap a component if it frequently
+// re-renders with the same props.
+// It performs a shallow comparison of props; if the props are
+// identical to the previous render, React skips the re-render
+// of that component and its entire subtree.
+
+
+
+
+// 2.
+useCallback()
+// It memoizes a function definition between renders.
+// Use "useCallback" when passing a function as a prop
+// to a child component wrapped in memo(). Without
+// useCallback, the child will re-render every time
+// because it sees a "new" function prop, even if the
+// code inside hasn't changed.
+
+// Secondary Case:
+//    When a function is a dependency in other hooks like
+//    useEffect.
+
 
 // Example:
 

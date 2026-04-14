@@ -2,21 +2,13 @@
 // Memoization - useMemo ////////////////////////////////////
 /////////////////////////////////////////////////////////////
 
-// "useMemo" and "useCallback" are React hooks designed to
-// optimize performance by caching (memoizing) values and
-// functions between renders.
-
-// "useMemo" lets you cache the result of a function /
-// calculation between re-renders.
+// "useMemo" is a React hook designed to optimize performance
+// by caching (memoizing) the result of a calculation(function)
+// between re-renders.
 // That result could be a property or state.
 
-// "useCallback" lets you cache a 'function definition'
-// between re-renders.
-
-// Use "useMemo" for expensive calculations
-// (e.g. transforming large arrays).
-// Use "useCallback" when passing functions to child
-// components to prevent unnecessary re-renders of the child.
+// We use "useMemo" for expensive calculations e.g.
+// transforming large arrays, etc...
 
 import { useMemo, useState } from "react";
 export const MyApp = () => {
