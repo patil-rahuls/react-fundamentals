@@ -38,4 +38,6 @@
 //    efficient image compression format for web.
 
 
-// 4. source-set for images
+// 5. Lazy Loading Images
+
+// 6. Source-set for images

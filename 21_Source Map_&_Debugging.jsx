@@ -6,8 +6,8 @@
 //  When we build a React app for production the code is
 //  minified (to save space) and transpiled (to ensure browser
 //  compatibility).
-//  The result is a single, massive file of gibberish that is
-//  impossible for a human to read.
+//  The result is a single, massive file of obfuscated/minified
+//  code that is impossible for a human to read.
 
 // A source map is a ".map" file that tells the browser:
 // "This line of gibberish in the production file actually
